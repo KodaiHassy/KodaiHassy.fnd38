@@ -1,98 +1,294 @@
-'use strict'
-// 1行目に記載している 'use strict' は削除しないでください
-
-//canvasのドキュメントを取得
-const canvas = document.getElementById("myCanvas");
-const context = canvas.getContext("2d");
-
-//背景設定
-context.rect(0, 0, canvas.width, canvas.height);
-// context.fillStyle = "#000000";
-context.fill();
-
-//レスポンシブ対応
-function resizeCanvas(){
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+body {
+  background: #9daecc;
+}
+#boardTitle{
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 8px;
 }
 
-//レスポンシブ対応を起動する 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); // 初期化時にも呼び出す
-
-//線の太さと色設定 デフォルト
-context.lineWidth = 2;
-context.strokeStyle = "#000000";
-
-//ここから描画の処理
-//mouseの初期座標を定義
-let mouse = { x: 0, y: 0 };
-
-//マウス座標を設定する move
-function mouseMove(e) {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
+#subTitle{
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 5px;
 }
-canvas.addEventListener("mousemove", mouseMove);
-
-//マウスがクリックされるたび起動する　down
-function mouseClick(){
-    context.beginPath();
-    context.moveTo(mouse.x, mouse.y);
-    canvas.addEventListener("mousemove", onPaint);
+#myCanvas{
+  width: 100%;  /*レスポンシブ対応　JS側も調整が必要*/
+  height: 100%;
+  display: block;
+  position: relative;
+   /* background-color: #f5f5f5; */
+  top: 0;
+  left: 0;
+  z-index: 0; /*他の要素より前面に表示 */
 }
-canvas.addEventListener("mousedown", mouseClick);
 
-//マウスがクリック離されるたび起動する　up
-//これやらないと永遠に描かれる
-function mouseUp() {
-  canvas.removeEventListener("mousemove", onPaint);
+.mainNum1 {
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    align-items: center;
+    position: relative;
+    background-color: #158fd4;
+    border-radius: 50px;
 }
-canvas.addEventListener("mouseup", mouseUp);
 
-
-//描画する
-const onPaint = function () {
-  context.lineTo(mouse.x, mouse.y); //線を引く
-  context.stroke(); //
-};
-
-//ここからボタンの処理
-//ボタン用のDOM
-const actionButton = document.querySelectorAll(".actionButton");
-
-//消しゴムボタン
-let isEraser = true;
-function eraser() {
-    if(isEraser){
-        context.lineWidth = 20;
-        context.strokeStyle = "#ffffff";
-        actionButton[0].textContent ="鉛筆";
-    }else{
-        context.lineWidth = 2;
-        context.strokeStyle = "#000000";
-        actionButton[0].textContent ="消しゴム";
-    }
-    isEraser = !isEraser;   //ボタンをトグルの動きをする
+.mainNum2 {
+    position: relative;
+    /* width: 472px;
+    height: 288px; */
+    width: 100%;  /*レスポンシブ対応　JS側も調整が必要*/
+    height: 100%;
+    margin-top: -2.00px;
+    margin-bottom: -2.00px;
+    background-color: #ffffff;
+    border-radius: 40px;
 }
-actionButton[0].addEventListener("click", eraser);
 
-//全消去ボタン
-function allDelete() {
-    context.clearRect(0,0,canvas.width,canvas.height);
+.mainNum3 {
+    position: absolute;
+    /* width: 421px;
+    height: 249px; */
+      position: absolute;
+    top: 10px;
+    left: 0;
+    right:0;
+    margin: 0 auto;
+    background-color: #158fd4;
+    border-radius: 5px;
+    width: calc(100% - 20px);  /*レスポンシブ対応　JS側も調整が必要*/
+    height: calc(100% - 20px);
+    border-radius: 40px;
 }
-actionButton[1].addEventListener("click", allDelete);
+.writeBoard {
+  position: absolute;
+    width: calc(100% - 20px);  /*レスポンシブ対応　JS側も調整が必要*/
+    height: calc(100% - 20px);
+  top: 10px;
+  left: 10px;
+  background-color: #f0f0f0;
+  border-radius: 40px;
+}
 
-//スクリーンショットボタン　未
-function screenShot() {
-    //context.clearRect(0,0,canvas.width,canvas.height);
-}
-actionButton[2].addEventListener("click", screenShot);
 
-//送るボタみ　未
-//LineAPIが起動すると嬉しい
-function sendToLine() {
-    //context.clearRect(0,0,canvas.width,canvas.height);
+/* レスポンシブ対応用の背景色と同じブロック */
+.marginBlock{
+  width: 93%;
+  display: flex;
+  justify-content: space-evenly;
+  /* background-color: #ffffff;   */
 }
-actionButton[3].addEventListener("click", sendToLine);
+
+/* レスポンシブ対応用の背景色と同じブロック */
+.marginBlockTitle{
+  width: 100%;
+  display: flex;
+  /* justify-content: space-evenly; */
+  flex-direction: column; 
+
+}
+/* bottun upper*/
+.actionButtonUp {
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-right: 20px;
+  display: inline-block;
+  background: white; /* 内側の白背景 */
+  color: #158fd4; /* テキストの青色 */
+  font-size: medium;
+  font-weight: bold;
+  width: 190px;
+  height: 79px;
+  line-height: 59px;
+  border-radius: 40px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.25); /* 立体感の影 */
+  border: 10px solid #158fd4; /* 外側の青枠線 */
+}
+
+.actionButtonUp::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 2px solid #158fd4; /* 内側の白い線 */
+  border-radius: 37px;
+  pointer-events: none;
+}
+.actionButtonUp:hover {
+  border-style: dashed;
+}
+
+.actionButtonUp:hover {
+  display: inline-block;
+  background: #158fd4; /* 内側の白背景 */
+  color: #ffffff; /* テキストの青色 */
+  font-size: medium;
+  font-weight: bold;
+  width: 190px;
+  height: 79px;
+  line-height: 60px;
+  border-radius: 40px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.25); /* 立体感の影 */
+  border: 10px solid #ffffff; /* 外側の青枠線 */
+}
+
+.actionButtonUp:hover::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 2px solid #ffffff; /* 内側の白い線 */
+  border-radius: 37px;
+  pointer-events: none;
+}
+
+/* until bottun */
+
+/* bottun under*/
+.actionButton {
+  margin-top: 10px;
+  display: inline-block;
+  background: white; /* 内側の白背景 */
+  color: #158fd4; /* テキストの青色 */
+  font-size: medium;
+  font-weight: bold;
+  width: 190px;
+  height: 79px;
+  line-height: 59px;
+  border-radius: 40px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.25); /* 立体感の影 */
+  border: 10px solid #158fd4; /* 外側の青枠線 */
+}
+
+.actionButton::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 2px solid #158fd4; /* 内側の白い線 */
+  border-radius: 37px;
+  pointer-events: none;
+}
+.actionButton:hover {
+  border-style: dashed;
+}
+
+.actionButton:hover {
+  display: inline-block;
+  background: #158fd4; /* 内側の白背景 */
+  color: #ffffff; /* テキストの青色 */
+  font-size: medium;
+  font-weight: bold;
+  width: 190px;
+  height: 79px;
+  line-height: 60px;
+  border-radius: 40px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.25); /* 立体感の影 */
+  border: 10px solid #ffffff; /* 外側の青枠線 */
+}
+
+.actionButton:hover::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 2px solid #ffffff; /* 内側の白い線 */
+  border-radius: 37px;
+  pointer-events: none;
+}
+
+/* until bottun */
+
+/*  */
+.frame {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.frame .div {
+  width: 500px;
+  height: 300px;
+  position: relative;
+}
+
+
+
+.button-container {
+  padding: 20px;
+}
+
+.eraser-button {
+  background-color: white;
+  color: black;
+  border: 3px solid #158fd4; /* 青い外枠 */
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 影 */
+  position: relative;
+}
+
+/* 内側の白枠を再現 */
+.eraser-button::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 2px solid white;
+  border-radius: 9px;
+  pointer-events: none;
+}
+
+
+.btn-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 2px solid;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+/* Mode Toggle */
+.mode-toggle {
+    display: flex;
+    gap: 0.75rem;
+}
+
+
