@@ -60,39 +60,40 @@ const onPaint = function () {
 
 //ここからボタンの処理
 //ボタン用のDOM
+const actionButtonUp = document.querySelectorAll(".actionButtonUp");
 const actionButton = document.querySelectorAll(".actionButton");
+
+//全消去ボタン
+function allDelete() {
+    context.clearRect(0,0,canvas.width,canvas.height);
+}
+actionButtonUp[0].addEventListener("click", allDelete);
 
 //消しゴムボタン
 let isEraser = true;
 function eraser() {
     if(isEraser){
         context.lineWidth = 20;
-        context.strokeStyle = "#ffffff";
-        actionButton[0].textContent ="鉛筆";
+        context.strokeStyle = "#f0f0f0";
+        actionButtonUp[1].textContent ="鉛筆";
     }else{
         context.lineWidth = 2;
         context.strokeStyle = "#000000";
-        actionButton[0].textContent ="消しゴム";
+        actionButtonUp[1].textContent ="消しゴム";
     }
     isEraser = !isEraser;   //ボタンをトグルの動きをする
 }
-actionButton[0].addEventListener("click", eraser);
-
-//全消去ボタン
-function allDelete() {
-    context.clearRect(0,0,canvas.width,canvas.height);
-}
-actionButton[1].addEventListener("click", allDelete);
+actionButtonUp[1].addEventListener("click", eraser);
 
 //スクリーンショットボタン　未
 function screenShot() {
     //context.clearRect(0,0,canvas.width,canvas.height);
 }
-actionButton[2].addEventListener("click", screenShot);
+actionButton[0].addEventListener("click", screenShot);
 
 //送るボタみ　未
 //LineAPIが起動すると嬉しい
 function sendToLine() {
     //context.clearRect(0,0,canvas.width,canvas.height);
 }
-actionButton[3].addEventListener("click", sendToLine);
+actionButton[1].addEventListener("click", sendToLine);
