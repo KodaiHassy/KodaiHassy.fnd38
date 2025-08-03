@@ -1,0 +1,63 @@
+<!-- <!DOCTYPE html>
+<html lang="ja"> -->
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <title>KakeRu｜ボード</title>
+
+  <link rel="icon" href="fabiCon\Fabi3.png">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js -->
+</head>
+
+<body>
+  <div class="headderContainer">
+    <img src="icon\main.png" alt="mainIcon" class= mainImgIcon>
+
+    <div class="rightContainer">
+      <input type="text" name= "whatsWord" class ="inputBox" placeholder="かきたい もじを かいてみよう！">
+      <div class="marginBlockRightUnder">
+        <button class="inputWordButton">かくよ！</button>
+        <button class="inputWordButton">うしろのもじをけす</button>
+      </div>
+    </div>
+
+    <div class="leftContainer">
+      <button class="actionButtonUp">
+        <img src="icon\reload.png" alt="全消し" class="icon"> 全消去
+      </button>
+      <button class="actionButtonUp">
+        <img src="icon\eraser.png" alt="消しゴム" class="icon"> 消しゴム
+      </button>
+    </div>
+  </div> 
+
+  <div class="outsideBaseBlue">
+    <div class="outsideInnerWrite">
+      <div class="innersideOutsideBlue">
+        <div class="innersideWriteBoard">
+          <!-- <div class="imageLayer"></div> -->
+          <div class="imageLayer" style="position: absolute; top: 0; left: 0; z-index: 0;"></div>
+          <canvas id="myCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="marginBlock">
+    <button class="actionButton">スクリーンショット </button>
+    <button class="actionButton">送る</button>
+  </div> -->
+</body>
+
+<!-- <h6 id="reference"><a href="https://icons8.jp/">Icon by icon8</a></h6> -->
+<script type="text/javascript" src="script.js"></script>
+
+</html>
+
+
